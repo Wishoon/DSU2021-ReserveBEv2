@@ -2,7 +2,6 @@ package com.dsu.industry.domain.product.controller;
 
 import com.dsu.industry.domain.product.dto.ProductDto;
 import com.dsu.industry.domain.product.dto.ProductDto.ProductIdRes;
-import com.dsu.industry.domain.product.dto.ProductDto.ProductSelectRes;
 import com.dsu.industry.domain.product.entity.Category;
 import com.dsu.industry.domain.product.entity.Product;
 import com.dsu.industry.domain.product.repository.CategoryRepository;
@@ -22,8 +21,8 @@ public class ProductController {
     private final CategoryRepository categoryRepository;
 
     @GetMapping("/product/{product_id}")
-    CommonResponse<ProductSelectRes> product_select(@PathVariable("product_id") Long idReq) {
-        return CommonResponse.<ProductSelectRes>builder()
+    CommonResponse<ProductDto.ProductInfoRes> product_select(@PathVariable("product_id") Long idReq) {
+        return CommonResponse.<ProductDto.ProductInfoRes>builder()
                 .code("200")
                 .message("ok")
                 .data(productService.product_select(idReq))
@@ -31,8 +30,8 @@ public class ProductController {
     }
 
     @GetMapping("/product/list")
-    CommonResponse<List<ProductSelectRes>> product_selectList() {
-        return CommonResponse.<List<ProductSelectRes>>builder()
+    CommonResponse<List<ProductDto.ProductInfoRes>> product_selectList() {
+        return CommonResponse.<List<ProductDto.ProductInfoRes>>builder()
                 .code("200")
                 .message("ok")
                 .data(productService.product_selectList())

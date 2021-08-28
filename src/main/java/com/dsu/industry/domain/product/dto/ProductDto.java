@@ -1,5 +1,6 @@
 package com.dsu.industry.domain.product.dto;
 
+import com.dsu.industry.domain.product.entity.AvailableDate;
 import com.dsu.industry.domain.product.entity.Category;
 import com.dsu.industry.domain.product.entity.Product;
 import lombok.AllArgsConstructor;
@@ -38,7 +39,8 @@ public class ProductDto {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ProductSelectRes {
+    public static class ProductInfoRes {
+        private Long id;
         private String name;
         private String sub_name;
 
@@ -49,8 +51,9 @@ public class ProductDto {
         private String description;
 
         @Builder
-        public static ProductSelectRes toDto(Product product) {
-            return ProductSelectRes.builder()
+        public static ProductInfoRes toDto(Product product) {
+            return ProductInfoRes.builder()
+                    .id(product.getId())
                     .name(product.getName())
                     .sub_name(product.getSub_name())
                     .category_name(product.getCategory().getName())
