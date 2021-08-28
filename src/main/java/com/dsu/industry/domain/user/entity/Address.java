@@ -1,7 +1,14 @@
 package com.dsu.industry.domain.user.entity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Embeddable;
 
+@Data
 @Embeddable
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address {
     private String addr1_depth_nm;
     private String addr2_depth_nm;
