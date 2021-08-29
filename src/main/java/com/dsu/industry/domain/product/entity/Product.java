@@ -1,5 +1,6 @@
 package com.dsu.industry.domain.product.entity;
 
+import com.dsu.industry.domain.review.entity.Review;
 import com.dsu.industry.domain.user.entity.Address;
 import com.dsu.industry.global.common.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -47,11 +48,20 @@ public class Product extends BaseEntity {
     @Builder.Default
     private List<AvailableDate> calendarList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "product")
+    @Builder.Default
+    private List<Review> reviewList = new ArrayList<>();
+
 
     /* 연관관계 메서드 */
     public void addCalender(AvailableDate availableDate) {
         calendarList.add(availableDate);
         availableDate.addProduct(this);
+    }
+
+    public void addReview(Review review) {
+        reviewList.add(review);
+        review.addProduct(this);
     }
 
     /* 비즈니스 메소드 */
