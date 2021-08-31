@@ -24,7 +24,7 @@ public class ProductSearchService {
     public List<ProductDto.ProductInfoRes> product_searchList(ProductSearchDto.SearchReq dto) {
 
         List<Product> products = productQueryRepository.findProductByAvailable(
-                dto.getCategory(), dto.getCity(), dto.getCheckIn(), dto.getCheckOut());
+                dto.getCategory(), dto.getCity(), dto.getCheckIn(), dto.getCheckOut(), dto.getDateCnt());
 
         return products.stream()
                 .map(ProductDto.ProductInfoRes::toDto)
