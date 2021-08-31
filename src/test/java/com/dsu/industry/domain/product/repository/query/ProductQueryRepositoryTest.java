@@ -28,13 +28,14 @@ class ProductQueryRepositoryTest {
         String city = "부산";
         String checkIn = "2021.08.23";
         String checkOut = "2021.08.24";
+        Long count = 1L;
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 
         LocalDate checkIn_c = LocalDate.parse(checkIn, formatter);
         LocalDate checkOut_c = LocalDate.parse(checkOut, formatter);
 
-        List<Product> products = productQueryRepository.findProductByAvailable(category, city, checkIn_c, checkOut_c);
+        List<Product> products = productQueryRepository.findProductByAvailable(category, city, checkIn_c, checkOut_c, count);
 
         // 상품1. 23 ~ 24, 상품2. 23
         assertThat(products.size()).isEqualTo(3);
