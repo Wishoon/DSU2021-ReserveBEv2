@@ -1,28 +1,16 @@
 package com.dsu.industry.domain.user.entity;
 
-import com.dsu.industry.global.common.BaseEntity;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+@Getter
+@RequiredArgsConstructor
+public enum Authority {
 
-@Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Authority extends BaseEntity {
-    @Id
-    @GeneratedValue
-    @Column(name = "AUTHORITY_ID")
-    private Long id;
+    GUEST("ROLE_GUEST", "손님"),
+    USER("ROLE_USER", "일반 사용자"),
+    ADMIN("ROLE_ADMIN", "관리자");
 
-    @Column(name = "AUTHORITY_NAME")
-    private String authorityName;
-
-    @Builder
-    public Authority(String authorityName) {
-        this.authorityName = authorityName;
-    }
+    private final String key;
+    private final String title;
 }
