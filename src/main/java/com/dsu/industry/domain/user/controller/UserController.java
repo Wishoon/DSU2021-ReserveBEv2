@@ -1,7 +1,6 @@
 package com.dsu.industry.domain.user.controller;
 
 import com.dsu.industry.domain.user.dto.UserDto;
-import com.dsu.industry.domain.user.dto.UserDto.UserJoinReq;
 import com.dsu.industry.domain.user.dto.mapper.UserMapper;
 import com.dsu.industry.domain.user.service.UserService;
 import com.dsu.industry.global.common.CommonResponse;
