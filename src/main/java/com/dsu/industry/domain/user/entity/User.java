@@ -57,11 +57,11 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    public void changeUserInfo(String password, String name, String phone, Address address) {
-        this.password = password;
-        this.name = name;
-        this.phone = phone;
-        this.address = address;
+    public void changeUserInfo(User user) {
+        this.password = user.getPassword();
+        this.name = user.getName();
+        this.phone = user.getPhone();
+        this.address = user.getAddress();
     }
 
 }
