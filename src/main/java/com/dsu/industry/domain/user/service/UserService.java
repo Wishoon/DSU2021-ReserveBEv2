@@ -3,6 +3,7 @@ package com.dsu.industry.domain.user.service;
 import com.dsu.industry.domain.user.dto.UserDto;
 import com.dsu.industry.domain.user.entity.User;
 import com.dsu.industry.domain.user.exception.UserDuplicationException;
+import com.dsu.industry.domain.user.exception.UserNotFoundException;
 import com.dsu.industry.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,6 +35,26 @@ public class UserService {
 
         return UserDto.UserIdRes.builder()
                 .id(save.getId())
+                .build();
+    }
+
+    public UserDto.UserInfoRes user_select(Long userId) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException());
+
+        return UserDto.UserInfoRes.toDto(user);
+    }
+
+    public UserDto.UserIdRes user_update(Long userId, UserDto.UserInfoRes userInfoRes) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException());
+
+        user.changeUserInfo(userInfoRes.toEntity(userInfoRes));
+
+        return UserDto.UserIdRes.builder()
+                .id(user.getId())
                 .build();
     }
 
