@@ -3,24 +3,19 @@ package com.dsu.industry.global.security.jwt;
 import com.dsu.industry.global.config.AppProperties;
 import com.dsu.industry.global.security.UserPrincipal;
 import io.jsonwebtoken.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Component;
 import java.util.Date;
 
 
-@Service
+@Slf4j
+@RequiredArgsConstructor
+@Component
 public class TokenProvider {
 
-    private static final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
-
-    private AppProperties appProperties;
-
-    public TokenProvider(AppProperties appProperties) {
-        this.appProperties = appProperties;
-    }
+    private final AppProperties appProperties;
 
     public String createToken(Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
@@ -50,15 +45,15 @@ public class TokenProvider {
             Jwts.parser().setSigningKey(appProperties.getAuth().getTokenSecret()).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException ex) {
-            logger.error("Invalid JWT signature - 유효하지 않은 JWT 서명");
+            log.error("Invalid JWT signature - 유효하지 않은 JWT 서명");
         } catch (MalformedJwtException ex) {
-            logger.error("Invalid JWT token - 유효하지 않은 JWT 토큰");
+            log.error("Invalid JWT token - 유효하지 않은 JWT 토큰");
         } catch (ExpiredJwtException ex) {
-            logger.error("Expired JWT token - 만료된 JWT 토큰");
+            log.error("Expired JWT token - 만료된 JWT 토큰");
         } catch (UnsupportedJwtException ex) {
-            logger.error("Unsupported JWT token - 지원하지 않는 JWT 토큰");
+            log.error("Unsupported JWT token - 지원하지 않는 JWT 토큰");
         } catch (IllegalArgumentException ex) {
-            logger.error("JWT claims string is empty - 비어있는 JWT");
+            log.error("JWT claims string is empty - 비어있는 JWT");
         }
         return false;
     }
