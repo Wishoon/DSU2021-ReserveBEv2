@@ -1,4 +1,4 @@
-용package com.dsu.industry.domain.user.service;
+package com.dsu.industry.domain.user.service;
 
 import com.dsu.industry.domain.user.dto.UserDto;
 import com.dsu.industry.domain.user.dto.mapper.UserMapper;

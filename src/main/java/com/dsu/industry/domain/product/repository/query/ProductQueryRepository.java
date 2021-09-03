@@ -11,11 +11,12 @@ import java.util.List;
 public interface ProductQueryRepository extends JpaRepository<Product, Long> {
 
     @Query("select p from Product p" +
-            " join p.calendarList cd on cd.date between :checkIn and :checkOut" +
-            " where p.address.addr1_depth_nm = :city" +
+            " where p.id in (select cd.product.id from AvailableDate cd join cd.product p where cd.date between :checkIn and :checkOut group by p.id having count(p.id) = :count)" +
+            " and p.address.addr1_depth_nm = :city" +
             " and p.category.name = :category")
     List<Product> findProductByAvailable(@Param("category") String category,
-                                         @Param("city") String city,
-                                         @Param("checkIn") LocalDate checkIn,
-                                         @Param("checkOut") LocalDate checkOut);
+                                          @Param("city") String city,
+                                          @Param("checkIn") LocalDate checkIn,
+                                          @Param("checkOut") LocalDate checkOut,
+                                          @Param("count") Long count);
 }
