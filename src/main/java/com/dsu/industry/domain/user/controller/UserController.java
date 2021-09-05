@@ -48,12 +48,12 @@ public class UserController {
 
     public CommonResponse<UserDto.UserIdRes> user_update(
             @CurrentUser UserPrincipal userPrincipal,
-            @RequestBody UserDto.UserInfoRes userInfoRes) {
+            @RequestBody UserDto.UserInfoReq userInfoReq) {
 
         return CommonResponse.<UserDto.UserIdRes>builder()
                 .code("200")
                 .message("ok")
-                .data(userService.user_update(userPrincipal.getId(), userInfoRes))
+                .data(userService.user_update(userPrincipal.getId(), userInfoReq))
                 .build();
     }
 
