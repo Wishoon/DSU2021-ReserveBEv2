@@ -37,10 +37,19 @@ public class UserDto {
                     .address(user.getAddress())
                     .build();
         }
+    }
 
-        public static User toEntity(UserInfoRes dto) {
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class UserInfoReq {
+        private String name;
+        private String phone;
+        private Address address;
+
+        public static User toEntity(UserInfoReq dto) {
             return User.builder()
-                    .email(dto.getEmail())
                     .name(dto.getName())
                     .phone(dto.getPhone())
                     .address(dto.getAddress())

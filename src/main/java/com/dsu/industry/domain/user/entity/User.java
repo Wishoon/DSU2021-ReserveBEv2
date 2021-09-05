@@ -58,7 +58,6 @@ public class User extends BaseEntity {
     }
 
     public void changeUserInfo(User user) {
-        this.password = user.getPassword();
         this.name = user.getName();
         this.phone = user.getPhone();
         this.address = user.getAddress();

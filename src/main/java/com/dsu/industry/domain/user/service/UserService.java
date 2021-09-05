@@ -46,12 +46,12 @@ public class UserService {
         return UserDto.UserInfoRes.toDto(user);
     }
 
-    public UserDto.UserIdRes user_update(Long userId, UserDto.UserInfoRes userInfoRes) {
+    public UserDto.UserIdRes user_update(Long userId, UserDto.UserInfoReq userInfoReq) {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException());
 
-        user.changeUserInfo(userInfoRes.toEntity(userInfoRes));
+        user.changeUserInfo(userInfoReq.toEntity(userInfoReq));
 
         return UserDto.UserIdRes.builder()
                 .id(user.getId())
