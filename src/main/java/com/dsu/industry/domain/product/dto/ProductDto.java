@@ -8,6 +8,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.swing.plaf.PanelUI;
+import java.security.PublicKey;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class ProductDto {
 
 
@@ -64,9 +70,69 @@ public class ProductDto {
         }
     }
 
+    @Builder
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ProductSearchReq {
+        private String category;
+        private String city;
+        private LocalDate checkIn;
+        private LocalDate checkOut;
+        private Long peopleCnt;
+        private Long dateCnt;
+
+        public static ProductDto.ProductSearchReq toDto(String category, String city, String checkIn, String checkOut, Long peopleCnt) {
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+            LocalDate first = LocalDate.parse(checkIn, formatter);
+            LocalDate last = LocalDate.parse(checkOut, formatter);
+
+            return ProductDto.ProductSearchReq.builder()
+                    .category(category)
+                    .city(city)
+                    .dateCnt(ChronoUnit.DAYS.between(first, last))
+                    .checkIn(first)
+                    .checkOut(last.minusDays(1))
+                    .peopleCnt(peopleCnt)
+                    .build();
+        }
+    }
 
 
+    @Builder
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ProductAvailableReq {
 
+        private Product product;
+        private LocalDate today;
+
+        public static ProductDto.ProductAvailableReq toDto(Product product, LocalDate today) {
+
+            return ProductAvailableReq.builder()
+                    .product(product)
+                    .today(today)
+                    .build();
+        }
+    }
+
+    @Builder
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ProductAvailableRes {
+        private String date;
+        private final boolean isAvailable = true;
+
+        public static ProductDto.ProductAvailableRes toDto(AvailableDate entity) {
+
+            return ProductDto.ProductAvailableRes.builder()
+                    .date(entity.getDate().toString())
+                    .build();
+        }
+    }
 
     @Data
     @Builder
