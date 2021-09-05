@@ -1,7 +1,6 @@
 package com.dsu.industry.domain.product.service;
 
 import com.dsu.industry.domain.product.dto.ProductDto;
-import com.dsu.industry.domain.product.dto.ProductSearchDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ class ProductSearchServiceTest {
     @Test
     @DisplayName("조건에 맞는 예약 가능 여부 확인")
     public void product_searchList() {
-        ProductSearchDto.SearchReq req = ProductSearchDto.SearchReq.toDto(
+        ProductDto.ProductSearchReq req = ProductDto.ProductSearchReq.toDto(
                 "호텔", "부산", "2021.08.23", "2021.08.24", 1L
         );
         List<ProductDto.ProductInfoRes> productList = productSearchService.product_searchList(req);
