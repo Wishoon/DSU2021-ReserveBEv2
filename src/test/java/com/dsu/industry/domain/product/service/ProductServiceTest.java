@@ -1,9 +1,15 @@
 package com.dsu.industry.domain.product.service;
 
 import com.dsu.industry.domain.product.dto.ProductDto;
+import com.dsu.industry.domain.product.entity.AvailableDate;
 import com.dsu.industry.domain.product.entity.Category;
 import com.dsu.industry.domain.product.entity.Product;
+import com.dsu.industry.domain.product.exception.AvailableDateNotFoundException;
 import com.dsu.industry.domain.product.repository.CategoryRepository;
+import com.dsu.industry.domain.product.repository.query.ProductQueryRepository;
+import com.dsu.industry.domain.reserve.entity.Reserve;
+import com.dsu.industry.domain.reserve.exception.ReserveNotFoundException;
+import com.dsu.industry.domain.reserve.repository.ReserveRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,15 +37,17 @@ class ProductServiceTest {
     private ProductService productService;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private ProductQueryRepository productQueryRepository;
+    @Autowired
+    private ReserveRepository reserveRepository;
 
-    private ProductDto.ProductSaveReq productSaveReq;
+    private ProductDto.ProductReq productReq;
 
     @BeforeEach
     public void before() {
 
-
-
-        productSaveReq = ProductDto.ProductSaveReq.builder()
+        productReq = ProductDto.ProductReq.builder()
                 .name("상품1")
                 .sub_name("상품하위1")
                 .category_id(3L)
@@ -53,7 +61,7 @@ class ProductServiceTest {
         /* given */
 
         /* when */
-        Category category = categoryRepository.findById(productSaveReq.getCategory_id())
+        Category category = categoryRepository.findById(productReq.getCategory_id())
                 .orElseThrow(() -> new IllegalStateException("추후 수정"));
 
         /* then */
@@ -64,10 +72,10 @@ class ProductServiceTest {
     @Test
     void 상품DTO_상품Entity_변환() {
         /* given */
-        Category category = categoryRepository.findById(productSaveReq.getCategory_id()).orElseThrow(() -> new IllegalStateException("하아"));
+        Category category = categoryRepository.findById(productReq.getCategory_id()).orElseThrow(() -> new IllegalStateException("하아"));
 
         /* when */
-        Product product = ProductDto.ProductSaveReq.toEntity(productSaveReq, category);
+        Product product = ProductDto.ProductSaveReq.toEntity(productReq, category);
 
         /* then */
         assertNotNull(product);
@@ -76,8 +84,8 @@ class ProductServiceTest {
     @Test
     void 상품등록() {
         /* given */
-        Category category = categoryRepository.findById(productSaveReq.getCategory_id()).orElseThrow(() -> new IllegalStateException("하아"));
-        Product product = ProductDto.ProductSaveReq.toEntity(productSaveReq, category);
+        Category category = categoryRepository.findById(productReq.getCategory_id()).orElseThrow(() -> new IllegalStateException("하아"));
+        Product product = ProductDto.ProductSaveReq.toEntity(productReq, category);
 
         /* when */
         ProductDto.ProductIdRes res = productService.product_save(product);
@@ -91,11 +99,11 @@ class ProductServiceTest {
     @DisplayName("상품 수정")
     void product_revise() {
         /* given */
-        Category save_category = categoryRepository.findById(productSaveReq.getCategory_id()).orElseThrow(() -> new IllegalStateException("하아"));
-        Product save_product = ProductDto.ProductSaveReq.toEntity(productSaveReq, save_category);
+        Category save_category = categoryRepository.findById(productReq.getCategory_id()).orElseThrow(() -> new IllegalStateException("하아"));
+        Product save_product = ProductDto.ProductSaveReq.toEntity(productReq, save_category);
         ProductDto.ProductIdRes save_res = productService.product_save(save_product);
 
-        ProductDto.ProductSaveReq productReviseReq = ProductDto.ProductSaveReq.builder()
+        ProductDto.ProductReq productReviseReq = ProductDto.ProductReq.builder()
                 .name("상품1")
                 .sub_name("상품하위1")
                 .category_id(3L)
@@ -113,4 +121,24 @@ class ProductServiceTest {
         /* then */
         assertNotNull(res);
     }
+
+//    @Test
+//    @DisplayName("")
+//    void product_to_available() {
+//
+//        Reserve reserve = reserveRepository.findById(8L)
+//                .orElseThrow(() -> new ReserveNotFoundException());
+//
+//        Product product = productQueryRepository
+//                .findProductByAvailable(reserve.getProduct(),
+//                                        reserve.getCheckIn(),
+//                                        reserve.getCheckOut().minusDays(1),
+//                                        reserve.calculatingWithCheckInAndCheckOut(
+//                                                reserve.getCheckIn(),
+//                                                reserve.getCheckOut()
+//                                        ))
+//                .orElseThrow(() -> new AvailableDateNotFoundException());
+//
+//        List<AvailableDate> availableDates =
+//    }
 }
