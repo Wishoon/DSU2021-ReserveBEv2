@@ -12,6 +12,7 @@ import java.util.Optional;
 
 public interface ProductQueryRepository extends JpaRepository<Product, Long> {
 
+    /* 상품 검색에서 예약 가능 여부 확인 로직*/
     @Query("select p from Product p" +
             " where p.id in (select cd.product.id from AvailableDate cd join cd.product p" +
                             " where cd.date between :checkIn and :checkOut" +
@@ -26,6 +27,8 @@ public interface ProductQueryRepository extends JpaRepository<Product, Long> {
             @Param("count") Long count);
 
 
+    /* 체크인 체크아웃 조건에 의한 상품 예약 가능 여부 확인 로직*/
+    /*
     @Query("select p from Product p" +
             " where p = :product" +
             " and :product = (select cd.product from AvailableDate cd join cd.product p" +
@@ -36,5 +39,5 @@ public interface ProductQueryRepository extends JpaRepository<Product, Long> {
             @Param("product") Product product,
             @Param("checkIn") LocalDate checkIn,
             @Param("checkOut") LocalDate checkOut,
-            @Param("count") Long count);
+            @Param("count") Long count); */
 }
