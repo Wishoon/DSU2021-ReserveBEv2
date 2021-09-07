@@ -42,6 +42,11 @@ public class ProductSearchController {
                     .build();
     }
 
+    /**
+     * 상품에 대해서 예약 가능한 날짜 리스트 전체를 조회하는 로직
+     * @param product_id
+     * @return
+     */
     @GetMapping("/product/{product_id}/available")
     CommonResponse<List<ProductDto.ProductAvailableRes>> product_available_search (
             @PathVariable Long product_id) {
