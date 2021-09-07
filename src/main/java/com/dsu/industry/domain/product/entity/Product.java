@@ -2,16 +2,14 @@ package com.dsu.industry.domain.product.entity;
 
 import com.dsu.industry.domain.user.entity.Address;
 import com.dsu.industry.global.common.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
 @NoArgsConstructor
@@ -49,13 +47,11 @@ public class Product extends BaseEntity {
 
 
     /* 연관관계 메서드 */
-    public void addCalender(AvailableDate availableDate) {
-        calendarList.add(availableDate);
-        availableDate.addProduct(this);
+    public void addCalender(List<AvailableDate> availableDates) {
+       this.calendarList = availableDates;
     }
 
     /* 비즈니스 메소드 */
-
     /**
      * 상품에 대한 정보 업데이트
      * @param productRes
