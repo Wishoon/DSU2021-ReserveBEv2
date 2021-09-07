@@ -40,12 +40,12 @@ public class ProductController {
 
     @PostMapping("/product")
     CommonResponse<ProductIdRes> product_save(
-            @RequestBody ProductDto.ProductSaveReq dto) {
+            @RequestBody ProductDto.ProductReq dto) {
 
-        Category category = categoryRepository.findById(dto.getCategory_id())
+        Category category_save = categoryRepository.findById(dto.getCategory_id())
                 .orElseThrow(() -> new IllegalStateException("추후 수정"));
 
-        Product product = ProductDto.ProductSaveReq.toEntity(dto, category);
+        Product product = ProductDto.ProductSaveReq.toEntity(dto, category_save);
             
         return CommonResponse.<ProductIdRes>builder()
                 .code("200")
@@ -56,12 +56,12 @@ public class ProductController {
 
     @PutMapping("/product/{product_id}")
     CommonResponse<ProductIdRes> product_revise(@PathVariable("product_id") Long idReq,
-                                                @RequestBody ProductDto.ProductSaveReq dto) {
+                                                @RequestBody ProductDto.ProductReq dto) {
 
-        Category category_select = categoryRepository.findById(dto.getCategory_id())
+        Category category_save = categoryRepository.findById(dto.getCategory_id())
                 .orElseThrow(() -> new IllegalStateException(""));
 
-        Product productRes = ProductDto.ProductSaveReq.toEntity(dto, category_select);
+        Product productRes = ProductDto.ProductSaveReq.toEntity(dto, category_save);
 
         return CommonResponse.<ProductIdRes>builder()
                 .code("200")
