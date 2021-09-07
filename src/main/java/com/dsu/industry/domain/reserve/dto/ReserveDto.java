@@ -76,6 +76,7 @@ public class ReserveDto {
     @AllArgsConstructor
     public static class ReserveInfoRes {
         private Long reserve_id;
+        private Long product_id;
         private String product_name;
         private String product_img_url;
         private LocalDate checkIn;
@@ -85,8 +86,9 @@ public class ReserveDto {
 
         public static ReserveInfoRes toDto(Reserve reserve) {
 
-            return ReserveDto.ReserveInfoRes.builder()
-                    .reserve_id(reserve.getProduct().getId())
+            return ReserveInfoRes.builder()
+                    .reserve_id(reserve.getId())
+                    .product_id(reserve.getProduct().getId())
                     .product_name(reserve.getProduct().getName())
                     .checkIn(reserve.getCheckIn())
                     .checkOut(reserve.getCheckOut())
