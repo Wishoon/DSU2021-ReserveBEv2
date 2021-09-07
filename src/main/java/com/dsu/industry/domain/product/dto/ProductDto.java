@@ -8,8 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.swing.plaf.PanelUI;
-import java.security.PublicKey;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -21,7 +19,7 @@ public class ProductDto {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ProductSaveReq {
+    public static class ProductReq {
         private String name;
         private String sub_name;
         private Long category_id;
@@ -29,7 +27,14 @@ public class ProductDto {
         private Long people_maxCnt;
         private String description;
 
-        public static Product toEntity(ProductSaveReq dto, Category category) {
+    }
+
+    @Builder
+    @Data
+    @NoArgsConstructor
+    public static class ProductSaveReq {
+
+        public static Product toEntity(ProductReq dto, Category category) {
             return Product.builder()
                     .name(dto.getName())
                     .sub_name(dto.getSub_name())
