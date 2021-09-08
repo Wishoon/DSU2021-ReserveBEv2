@@ -40,16 +40,16 @@ public class Product extends BaseEntity {
     @Builder.Default
     private List<Photo> photoList = new ArrayList<>();
 
-    // 예약 가능 여부 날짜 리스트
-    @OneToMany(mappedBy = "product")
-    @Builder.Default
-    private List<AvailableDate> calendarList = new ArrayList<>();
+//    // 예약 가능 여부 날짜 리스트
+//    @OneToMany(mappedBy = "product")
+//    @Builder.Default
+//    private List<AvailableDate> calendarList = new ArrayList<>();
 
 
     /* 연관관계 메서드 */
-    public void addCalender(List<AvailableDate> availableDates) {
-       this.calendarList = availableDates;
-    }
+//    public void addCalender(List<AvailableDate> availableDates) {
+//       this.calendarList = availableDates;
+//    }
 
     /* 비즈니스 메소드 */
     /**

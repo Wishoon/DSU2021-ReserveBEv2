@@ -88,10 +88,10 @@ class ProductServiceTest {
         Product product = ProductDto.ProductSaveReq.toEntity(productReq, category);
 
         /* when */
-        ProductDto.ProductIdRes res = productService.product_save(product);
+        ProductDto.ProductIdRes id = productService.product_save(product);
 
         /* then */
-        assertNotNull(res);
+        assertNotNull(id);
     }
 
     @Rollback(false)
@@ -101,7 +101,7 @@ class ProductServiceTest {
         /* given */
         Category save_category = categoryRepository.findById(productReq.getCategory_id()).orElseThrow(() -> new IllegalStateException("하아"));
         Product save_product = ProductDto.ProductSaveReq.toEntity(productReq, save_category);
-        ProductDto.ProductIdRes save_res = productService.product_save(save_product);
+        ProductDto.ProductIdRes id = productService.product_save(save_product);
 
         ProductDto.ProductReq productReviseReq = ProductDto.ProductReq.builder()
                 .name("상품1")
@@ -116,7 +116,7 @@ class ProductServiceTest {
         Category category = categoryRepository.findById(productReviseReq.getCategory_id()).orElseThrow(() -> new IllegalStateException("하아"));
         Product product = ProductDto.ProductSaveReq.toEntity(productReviseReq, category);
 
-        ProductDto.ProductIdRes res = productService.product_revise(save_res.getId(), product);
+        ProductDto.ProductIdRes res = productService.product_revise(id.getId(), product);
 
         /* then */
         assertNotNull(res);

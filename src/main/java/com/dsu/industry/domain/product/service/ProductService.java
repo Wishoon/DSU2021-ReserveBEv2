@@ -57,9 +57,9 @@ public class ProductService {
     // 사용자한테 받은 입력 JSON과 AWS에 저장한 이미지 파일의 경로를 파라미터로 받아야 함.
     public ProductIdRes product_save(Product product) {
 
-        Product save = productRepository.save(product);
+        Product product_save = productRepository.save(product);
         return ProductIdRes.builder()
-                .id(save.getId())
+                .id(product.getId())
                 .build();
     }
 

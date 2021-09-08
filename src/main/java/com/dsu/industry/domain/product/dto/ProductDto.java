@@ -23,6 +23,7 @@ public class ProductDto {
         private String name;
         private String sub_name;
         private Long category_id;
+        private String img_url;
         private Long price;
         private Long people_maxCnt;
         private String description;
@@ -56,6 +57,13 @@ public class ProductDto {
         private String sub_name;
 
         private String category_name;
+        // 주소
+
+        // 이미지 URL
+        private String img_url;
+        // 평점
+
+        // 댓글 갯수
 
         private Long price;
         private Long people_maxCnt;
@@ -68,6 +76,7 @@ public class ProductDto {
                     .name(product.getName())
                     .sub_name(product.getSub_name())
                     .category_name(product.getCategory().getName())
+                    .img_url(product.getPhotoList().get(0).getPhotoUrl())
                     .price(product.getPrice())
                     .people_maxCnt(product.getPeople_maxCnt())
                     .description(product.getDescription())
@@ -145,4 +154,19 @@ public class ProductDto {
         private Long id;
     }
 
+    @Data
+    @Builder
+    public static class ProductWithPhotoIdRes {
+        private Long product_id;
+        private Long photo_id;
+
+        public static ProductWithPhotoIdRes create(
+                ProductDto.ProductIdRes product_id,
+                PhotoDto.PhotoIdRes photo_id) {
+            return ProductWithPhotoIdRes.builder()
+                    .product_id(product_id.getId())
+                    .photo_id(photo_id.getId())
+                    .build();
+        }
+    }
 }
