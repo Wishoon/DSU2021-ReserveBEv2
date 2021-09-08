@@ -32,9 +32,9 @@ public class AvailableDate {
 
     private boolean isTrue = true;
 
-    /* 연관관계 메서드 */
-    public void addProduct(Product product) {
-        this.product = product;
-        product.getCalendarList().add(this);
-    }
+//    /* 연관관계 메서드 */
+//    public void addProduct(Product product) {
+//        this.product = product;
+//        product.getCalendarList().add(this);
+//    }
 }
