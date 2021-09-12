@@ -19,6 +19,9 @@ public enum ErrorCode {
     NOT_AVAILABLE_PRODUCT(400, "PRODUCT_001", "예약이 불가능한 날짜 입니다."),
     NOT_EXIST_PRODUCT(404, "PRODUCT_002", "존재하지 않는 상품입니다."),
 
+    // Review
+    NOT_EXIST_REVIEW(404, "REVIEW_001", "존재하지 않는 리뷰가 없습니다."),
+
     // Reserve
     RESERVE_NOT_FOUND(404, "RESERVE_002", "등록된 예약이 없습니다."),
 
