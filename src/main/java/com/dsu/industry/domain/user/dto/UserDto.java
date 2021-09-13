@@ -1,7 +1,6 @@
 package com.dsu.industry.domain.user.dto;
 
 import com.dsu.industry.domain.user.entity.Address;
-import com.dsu.industry.domain.user.entity.User;
 import lombok.*;
 
 public class UserDto {
@@ -15,7 +14,11 @@ public class UserDto {
         private String password;
         private String name;
         private String phone;
-        private Address address;
+        private String addr1_depth_nm;
+        private String addr2_depth_nm;
+        private String addr3_depth_nm;
+        private String addr4_depth_nm;
+        private String authority;
     }
 
     @Data
@@ -27,34 +30,19 @@ public class UserDto {
         private String name;
         private String phone;
         private Address address;
-
-        public static UserInfoRes toDto(User user) {
-
-            return UserInfoRes.builder()
-                    .email(user.getEmail())
-                    .name(user.getName())
-                    .phone(user.getPhone())
-                    .address(user.getAddress())
-                    .build();
-        }
     }
 
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class UserInfoReq {
+    public static class UserReviseReq {
         private String name;
         private String phone;
-        private Address address;
-
-        public static User toEntity(UserInfoReq dto) {
-            return User.builder()
-                    .name(dto.getName())
-                    .phone(dto.getPhone())
-                    .address(dto.getAddress())
-                    .build();
-        }
+        private String addr1_depth_nm;
+        private String addr2_depth_nm;
+        private String addr3_depth_nm;
+        private String addr4_depth_nm;
     }
 
     @Data
