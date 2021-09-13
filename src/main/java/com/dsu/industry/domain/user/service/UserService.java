@@ -1,6 +1,7 @@
 package com.dsu.industry.domain.user.service;
 
 import com.dsu.industry.domain.user.dto.UserDto;
+import com.dsu.industry.domain.user.dto.mapper.UserMapper;
 import com.dsu.industry.domain.user.entity.User;
 import com.dsu.industry.domain.user.exception.UserDuplicationException;
 import com.dsu.industry.domain.user.exception.UserNotFoundException;
@@ -26,11 +27,8 @@ public class UserService {
 
         // 비밀번호 암호화 로직
         user.changePwEncode(passwordEncoder.encode(user.getPassword()));
-        // UserAuthority 추가
-//        Optional<Authority> authority = authorityRepository.findById(1L);
-//        UserAuthority userAuthority = UserAuthority.toEntity(user, authority.get());
-//
-//        user.addAuthority(userAuthority);
+
+        // 유저 정보 저장
         User save = userRepository.save(user);
 
         return UserDto.UserIdRes.builder()
@@ -40,18 +38,18 @@ public class UserService {
 
     public UserDto.UserInfoRes user_select(Long userId) {
 
-        User user = userRepository.findById(userId)
+        User findUser = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException());
 
-        return UserDto.UserInfoRes.toDto(user);
+        return UserMapper.userEntityToDto(findUser);
     }
 
-    public UserDto.UserIdRes user_update(Long userId, UserDto.UserInfoReq userInfoReq) {
+    public UserDto.UserIdRes user_update(Long userId, User user) {
 
-        User user = userRepository.findById(userId)
+        User findUser = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException());
 
-        user.changeUserInfo(userInfoReq.toEntity(userInfoReq));
+        findUser.changeUserInfo(user);
 
         return UserDto.UserIdRes.builder()
                 .id(user.getId())
@@ -65,6 +63,4 @@ public class UserService {
             throw new UserDuplicationException();
         }
     }
-
-
 }

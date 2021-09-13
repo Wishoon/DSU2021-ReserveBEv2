@@ -23,8 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class UserServiceTest {
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserMapper userMapper;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -38,6 +37,10 @@ class UserServiceTest {
                 .password("password")
                 .name("name")
                 .phone("01012345678")
+                .addr1_depth_nm("부산")
+                .addr2_depth_nm("사하구")
+                .addr3_depth_nm("하단2동")
+                .addr4_depth_nm("sk 뷰 아파트")
                 .build();
 
         address = new Address("부산", "사하구", "하단2동", "sk뷰 아파트");
@@ -49,7 +52,7 @@ class UserServiceTest {
         /* given */
 
         /* when */
-        final User user = UserMapper.INSTANCE.userJoinDtoToEntity(userDto);
+        final User user = UserMapper.userJoinDtoToEntity(userDto);
 
         /* then */
         assertNotNull(user);
@@ -63,10 +66,10 @@ class UserServiceTest {
     @DisplayName("회원 Entity -> 회원 정보 Dto 변환 테스트")
     void userEntity_to_userInfoResDto() {
         /* given */
-        User user = userMapper.userJoinDtoToEntity(userDto);
+        User user = UserMapper.userJoinDtoToEntity(userDto);
 
         /* when */
-        UserDto.UserInfoRes dto = UserDto.UserInfoRes.toDto(user);
+        UserDto.UserInfoRes dto = UserMapper.userEntityToDto(user);
 
         /* then */
         assertThat(dto.getEmail()).isEqualTo("test@gmail.com");
@@ -78,12 +81,13 @@ class UserServiceTest {
     @DisplayName("회원가입")
     void userJoin() {
         /* given */
-
+        User user = UserMapper.userJoinDtoToEntity(userDto);
         /* when */
-        UserDto.UserIdRes res = userService.joinUser(userMapper.userJoinDtoToEntity(userDto));
+        UserDto.UserIdRes res = userService.joinUser(user);
 
         /* then */
         assertNotNull(res);
+        assertThat(user.getId()).isEqualTo(res.getId());
     }
 
     @Test
@@ -119,6 +123,8 @@ class UserServiceTest {
     public void changeUserInfo() {
 
         /* given */
+        User saveUser = userRepository.save(UserMapper.userJoinDtoToEntity(userDto));
+
         User user = User.builder()
                 .email("test2@gmail.com")
                 .password("password2")
@@ -127,18 +133,10 @@ class UserServiceTest {
                 .address(address)
                 .build();
 
-        User user_save = userRepository.save(user);
-
-        System.out.println(user_save.getId());
-        UserDto.UserInfoReq req = new UserDto.UserInfoReq(
-                "name",
-                "01093932992",
-                address);
-
         /* when */
-        user_save.changeUserInfo(UserDto.UserInfoReq.toEntity(req));
+        saveUser.changeUserInfo(user);
 
         /* then */
-        assertThat(user_save.getName()).isEqualTo("name");
+        assertThat(saveUser.getName()).isEqualTo("name2");
     }
 }

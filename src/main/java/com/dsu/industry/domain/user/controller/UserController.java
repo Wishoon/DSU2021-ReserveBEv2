@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 public class UserController {
 
-    private final UserMapper userMapper;
     private final UserService userService;
     /**
      * 일반 회원 가입
@@ -26,7 +25,7 @@ public class UserController {
         return CommonResponse.<UserDto.UserIdRes>builder()
                 .code("200")
                 .message("ok")
-                .data(userService.joinUser(userMapper.userJoinDtoToEntity(dto)))
+                .data(userService.joinUser(UserMapper.userJoinDtoToEntity(dto)))
                 .build();
     }
 
@@ -48,12 +47,13 @@ public class UserController {
 
     public CommonResponse<UserDto.UserIdRes> user_update(
             @CurrentUser UserPrincipal userPrincipal,
-            @RequestBody UserDto.UserInfoReq userInfoReq) {
+            @RequestBody UserDto.UserReviseReq dto) {
 
         return CommonResponse.<UserDto.UserIdRes>builder()
                 .code("200")
                 .message("ok")
-                .data(userService.user_update(userPrincipal.getId(), userInfoReq))
+                .data(userService.user_update(userPrincipal.getId(),
+                        UserMapper.userReviseDtoToEntity(dto)))
                 .build();
     }
 

@@ -15,18 +15,23 @@ public class User extends BaseEntity {
     @Id @GeneratedValue
     @Column(name = "user_id")
     private Long id;
-
+    @Column(name = "user_email")
     private String email;
+    @Column(name = "user_name")
     private String name;
+    @Column(name = "user_password")
     private String password;
+    @Column(name = "user_phone")
     private String phone;
     @Embedded
     private Address address;
 
+    @Column(name = "user_provider_id")
     private String providerId;
     @Enumerated(EnumType.STRING)
     @Column(name = "user_authProvider")
     private AuthProvider authProvider;
+    @Column(name = "user_emailVerified")
     private Boolean emailVerified = false;
 
     // 회원 유형 // Spring Security
@@ -34,33 +39,22 @@ public class User extends BaseEntity {
     @Column(name = "user_authority")
     private Authority authority;
 
-//    // 회원 유형 // Spring Security
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private Set<UserAuthority> authorities = new HashSet<>();
 
-//    @Builder
-//    public User(String email, String name, String password, String phone) {
-//        this.email = email;
-//        this.name = name;
-//        this.password = password;
-//        this.phone = phone;
-//    }
-
-//    /* 연관관계 메서드 */
-//    public void addAuthority(UserAuthority userAuthority) {
-//        authorities.add(userAuthority);
-//        userAuthority.addUser(this);
-//    }
-
-    /* 비즈니스 메서드 */
+    /** 비즈니스 메서드 */
+    // 비밀번호 변경 메서드
     public void changePwEncode(String password) {
         this.password = password;
     }
 
+    // 유저 속성 추가 or 변경 메서드
+    public void changeAuthority(Authority authority) {
+        this.authority = authority;
+    }
+
+    // 유저 정보 변경 메서드
     public void changeUserInfo(User user) {
         this.name = user.getName();
         this.phone = user.getPhone();
         this.address = user.getAddress();
     }
-
 }
