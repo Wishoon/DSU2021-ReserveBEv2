@@ -1,9 +1,8 @@
 package com.dsu.industry.domain.product.entity;
 
-import com.dsu.industry.domain.user.entity.Address;
+import com.dsu.industry.global.common.Address;
 import com.dsu.industry.global.common.BaseEntity;
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,31 +34,21 @@ public class Product extends BaseEntity {
 
     private String description;
 
-    // 사진
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST)
     @Builder.Default
     private List<Photo> photoList = new ArrayList<>();
 
-//    // 예약 가능 여부 날짜 리스트
-//    @OneToMany(mappedBy = "product")
-//    @Builder.Default
-//    private List<AvailableDate> calendarList = new ArrayList<>();
+    @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST)
+    @Builder.Default
+    private List<AvailableDate> availableDateList = new ArrayList<>();
 
-
-    /* 연관관계 메서드 */
-//    public void addCalender(List<AvailableDate> availableDates) {
-//       this.calendarList = availableDates;
-//    }
-
-    /* 비즈니스 메소드 */
-    /**
-     * 상품에 대한 정보 업데이트
-     * @param productRes
-     */
+    /** 비즈니스 메소드 */
+    // 상품 정보 업데이트
     public void update(Product productRes) {
         this.name = productRes.getName();
         this.sub_name = productRes.getSub_name();
         this.category = productRes.getCategory();
+        this.address = productRes.getAddress();
         this.price = productRes.getPrice();
         this.people_maxCnt = productRes.getPeople_maxCnt();
         this.description = productRes.getDescription();

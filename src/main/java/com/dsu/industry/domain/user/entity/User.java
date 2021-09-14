@@ -1,5 +1,6 @@
 package com.dsu.industry.domain.user.entity;
 
+import com.dsu.industry.global.common.Address;
 import com.dsu.industry.global.common.BaseEntity;
 import lombok.*;
 
@@ -32,6 +33,7 @@ public class User extends BaseEntity {
     @Column(name = "user_authProvider")
     private AuthProvider authProvider;
     @Column(name = "user_emailVerified")
+    @Builder.Default
     private Boolean emailVerified = false;
 
     // 회원 유형 // Spring Security

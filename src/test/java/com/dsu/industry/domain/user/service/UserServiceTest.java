@@ -2,7 +2,7 @@ package com.dsu.industry.domain.user.service;
 
 import com.dsu.industry.domain.user.dto.UserDto;
 import com.dsu.industry.domain.user.dto.mapper.UserMapper;
-import com.dsu.industry.domain.user.entity.Address;
+import com.dsu.industry.global.common.Address;
 import com.dsu.industry.domain.user.entity.User;
 import com.dsu.industry.domain.user.exception.UserDuplicationException;
 import com.dsu.industry.domain.user.repository.UserRepository;

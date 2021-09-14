@@ -1,8 +1,8 @@
-package com.dsu.industry.domain.user.entity;
+package com.dsu.industry.global.common;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.Embeddable;
 
 @Data

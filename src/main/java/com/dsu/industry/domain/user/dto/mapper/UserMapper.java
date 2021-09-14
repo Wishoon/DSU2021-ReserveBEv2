@@ -1,7 +1,7 @@
 package com.dsu.industry.domain.user.dto.mapper;
 
 import com.dsu.industry.domain.user.dto.UserDto;
-import com.dsu.industry.domain.user.entity.Address;
+import com.dsu.industry.global.common.Address;
 import com.dsu.industry.domain.user.entity.AuthProvider;
 import com.dsu.industry.domain.user.entity.Authority;
 import com.dsu.industry.domain.user.entity.User;

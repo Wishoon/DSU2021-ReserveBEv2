@@ -1,6 +1,6 @@
 package com.dsu.industry.domain.user.dto;
 
-import com.dsu.industry.domain.user.entity.Address;
+import com.dsu.industry.global.common.Address;
 import lombok.*;
 
 public class UserDto {
