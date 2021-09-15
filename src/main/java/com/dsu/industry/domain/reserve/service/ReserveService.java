@@ -5,6 +5,7 @@ import com.dsu.industry.domain.product.exception.AvailableDateNotFoundException;
 import com.dsu.industry.domain.product.repository.query.AvailableDateQueryRepository;
 import com.dsu.industry.domain.reserve.dto.ReserveDto;
 import com.dsu.industry.domain.reserve.dto.ReserveDto.ReserveIdRes;
+import com.dsu.industry.domain.reserve.dto.mapper.ReserveMapper;
 import com.dsu.industry.domain.reserve.entity.Reserve;
 import com.dsu.industry.domain.reserve.exception.ReserveNotFoundException;
 import com.dsu.industry.domain.reserve.repository.ReserveRepository;
@@ -32,9 +33,9 @@ public class ReserveService {
                 reserve.getProduct().getId(), reserve.getCheckIn(), reserve.getCheckOut().minusDays(1)
         );
 
-        if(availableDates.size() != ChronoUnit.DAYS.between(
+        if(availableDates.size() == 0 || availableDates.size() != ChronoUnit.DAYS.between(
                 reserve.getCheckIn(), reserve.getCheckOut())) {
-            new AvailableDateNotFoundException();
+            throw new AvailableDateNotFoundException();
         }
 
         // 예약 가능 날짜에 대한 수정 벌크 연산 수행
@@ -62,7 +63,7 @@ public class ReserveService {
         Reserve reserve_select = reserveRepository.findById(reserve_id)
                 .orElseThrow(() -> new ReserveNotFoundException());
 
-        return ReserveDto.ReserveInfoRes.toDto(reserve_select);
+        return ReserveMapper.reserveEntityToDto(reserve_select);
     }
 
     public List<ReserveDto.ReserveInfoRes> reserve_selectList(User user) {
@@ -70,7 +71,7 @@ public class ReserveService {
                 .orElseThrow(() -> new ReserveNotFoundException());
 
         return reserves.stream()
-                .map(ReserveDto.ReserveInfoRes::toDto)
+                .map(ReserveMapper::reserveEntityToDto)
                 .collect(Collectors.toList());
     }
 

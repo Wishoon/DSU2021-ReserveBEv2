@@ -4,6 +4,7 @@ import com.dsu.industry.domain.product.entity.Product;
 import com.dsu.industry.domain.product.exception.ProductNotFoundException;
 import com.dsu.industry.domain.product.repository.ProductRepository;
 import com.dsu.industry.domain.reserve.dto.ReserveDto;
+import com.dsu.industry.domain.reserve.dto.mapper.ReserveMapper;
 import com.dsu.industry.domain.reserve.service.ReserveService;
 import com.dsu.industry.domain.user.entity.User;
 import com.dsu.industry.domain.user.exception.UserNotFoundException;
@@ -44,7 +45,7 @@ public class ReserveController {
 //            idRes = reserveService.reserveWithCoupon(dto);
             idRes = null;
         } else {
-            idRes = reserveService.reserve(ReserveDto.ReserveSaveReq.toEntity(user, product, dto));
+            idRes = reserveService.reserve(ReserveMapper.reserveSaveReqToEntity(user, product, dto));
         }
 
         return CommonResponse.<ReserveDto.ReserveIdRes>builder()
