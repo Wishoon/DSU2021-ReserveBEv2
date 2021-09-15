@@ -1,10 +1,11 @@
 package com.dsu.industry.domain.product.controller;
 
 import com.dsu.industry.domain.product.dto.ProductDto;
+import com.dsu.industry.domain.product.dto.mapper.ProductMapper;
 import com.dsu.industry.domain.product.entity.Product;
 import com.dsu.industry.domain.product.exception.ProductNotFoundException;
 import com.dsu.industry.domain.product.repository.ProductRepository;
-import com.dsu.industry.domain.product.service.ProductSearchService;
+import com.dsu.industry.domain.product.service.query.ProductQueryService;
 import com.dsu.industry.global.common.CommonResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class ProductSearchController {
 
-    private final ProductSearchService productSearchService;
+    private final ProductQueryService productSearchService;
     private final ProductRepository productRepository;
 
     @GetMapping("/search/{category}/{city}/{checkIn}/{checkOut}/{peopleCnt}")
@@ -31,14 +32,14 @@ public class ProductSearchController {
             @PathVariable String checkOut,
             @PathVariable Long peopleCnt) {
 
-            ProductDto.ProductSearchReq req = ProductDto.ProductSearchReq.toDto(
-                    category, city, checkIn, checkOut, peopleCnt
-            );
-
             return CommonResponse.<List<ProductDto.ProductInfoRes>>builder()
                     .code("200")
                     .message("ok")
-                    .data(productSearchService.product_searchList(req))
+                    .data(productSearchService.product_searchList(
+                            ProductMapper.productSearchReqToDto(
+                                    category, city, checkIn, checkOut, peopleCnt
+                            )
+                    ))
                     .build();
     }
 
@@ -54,7 +55,7 @@ public class ProductSearchController {
             Product product = productRepository.findById(product_id)
                         .orElseThrow(() -> new ProductNotFoundException());
 
-            ProductDto.ProductAvailableReq req = ProductDto.ProductAvailableReq.toDto(
+            ProductDto.ProductAvailableReq req = ProductMapper.productAndDateToDto(
                     product, LocalDate.now()
             );
 
