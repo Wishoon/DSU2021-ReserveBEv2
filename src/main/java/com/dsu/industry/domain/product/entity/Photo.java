@@ -26,4 +26,11 @@ public class Photo {
     private PhotoType photoType;
 
     private String photoUrl;
+
+    /** 비즈니스 메서드 */
+
+    public void update(Photo photo) {
+        this.product = photo.getProduct();
+        this.photoUrl = photo.getPhotoUrl();
+    }
 }

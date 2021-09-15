@@ -21,4 +21,15 @@ public class PhotoService {
                 .id(photo_save.getId())
                 .build();
     }
+
+    public PhotoDto.PhotoIdRes photo_revise(Long img_id, Photo photo) {
+        Photo findPhoto = photoRepository.findById(img_id)
+                .orElseThrow(() -> new IllegalStateException("Photo 없음"));
+
+        findPhoto.update(photo);
+
+        return PhotoDto.PhotoIdRes.builder()
+                .id(findPhoto.getId())
+                .build();
+    }
 }

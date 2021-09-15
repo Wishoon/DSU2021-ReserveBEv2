@@ -11,6 +11,9 @@ public enum ErrorCode {
     METHOD_NOT_ALLOWED(405, "COMMON_002", "HTTP 메서드가 잘못되었습니다."),
     SERVER_ERROR(500, "COMMON_003", "서버 오류입니다."),
 
+    // Category
+    NOT_EXIST_CATEGORY(404, "CATEGORY_001", "존재하지 않는 카테고리 입니다."),
+
     // User
     EMAIL_DUPLICATION(400, "USER_001", "중복된 이메일(아이디) 입니다."),
     USER_NOT_FOUND(404, "USER_002", "등록된 유저가 아닙니다."),
