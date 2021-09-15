@@ -29,7 +29,7 @@ public class AvailableDate {
     private LocalDate date;
 
 //    private Long available_maxCnt;
-
+    @Builder.Default
     private boolean isTrue = true;
 
 //    /* 연관관계 메서드 */
