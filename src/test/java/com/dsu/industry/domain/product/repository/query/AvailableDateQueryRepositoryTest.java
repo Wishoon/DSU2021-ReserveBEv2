@@ -1,9 +1,8 @@
-package com.dsu.industry.domain.product.repository;
+package com.dsu.industry.domain.product.repository.query;
 
-import com.dsu.industry.domain.product.dto.ProductDto;
-import com.dsu.industry.domain.product.dto.mapper.ProductMapper;
 import com.dsu.industry.domain.product.entity.*;
-import com.dsu.industry.domain.product.exception.ProductNotFoundException;
+import com.dsu.industry.domain.product.repository.AvailableDateRepository;
+import com.dsu.industry.domain.product.repository.ProductRepository;
 import com.dsu.industry.global.common.Address;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,43 +16,59 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@Transactional
 @SpringBootTest
-class AvailableDateRepositoryTest {
+@Transactional
+public class AvailableDateQueryRepositoryTest {
+
+    @Autowired
+    EntityManager em;
+
+    @Autowired
+    ProductRepository productRepository;
+    @Autowired
+    AvailableDateRepository availableDateRepository;
+    @Autowired
+    AvailableDateQueryRepository availableDateQueryRepository;
 
     @BeforeEach
     public void before() {
         before_product();
     }
 
-    @Autowired
-    EntityManager em;
-    @Autowired
-    ProductRepository productRepository;
-    @Autowired
-    AvailableDateRepository availableDateRepository;
-
     @Test
-    @DisplayName("한 상품에 대한 금일부터의 예약 가능 날짜 조회 테스트")
-    void productAvailable_toDate() {
+    @DisplayName("조회하는 상품에 대한 예약 가능 날짜 리스트 확인")
+    public void findByAvailable() {
         /* given */
-        Product product = productRepository.findById(2L)
-                .orElseThrow(() -> new ProductNotFoundException());
-
-        ProductDto.ProductAvailableReq dto = ProductMapper.productAndDateToDto(
-                product, LocalDate.now()
-        );
+        Long product_id = 2L;
+        LocalDate checkIn = LocalDate.now();
+        LocalDate checkOut = LocalDate.now();
 
         /* when */
-       List<AvailableDate> dateList = availableDateRepository.findByProductAndDateGreaterThanEqual(
-               dto.getProduct(), dto.getToday()
-       );
+        List<AvailableDate> availableDates = availableDateQueryRepository.findByAvailable(product_id, checkIn, checkOut);
 
         /* then */
-        assertNotNull(dateList);
-        assertThat(dateList.get(0).getDate()).isEqualTo(LocalDate.now());
+        assertNotNull(availableDates);
+        assertThat(availableDates.get(0).getDate()).isEqualTo(checkIn.toString());
+    }
+
+    @Test
+    public void updateByAvailable() {
+        /* given */
+        Long product_id = 2L;
+        LocalDate checkIn = LocalDate.now();
+        LocalDate checkOut = LocalDate.now();
+
+        /* when */
+        availableDateQueryRepository.updateByAvailable(product_id, checkIn, checkOut);
+
+        /* then */
+        Product product = productRepository.findById(product_id).get();
+        List<AvailableDate> availableDates = availableDateRepository
+                .findByProductAndDateGreaterThanEqual(product, checkIn);
+
+        assertThat(availableDates.get(0).isTrue()).isEqualTo(false);
     }
 
     public void before_product() {
