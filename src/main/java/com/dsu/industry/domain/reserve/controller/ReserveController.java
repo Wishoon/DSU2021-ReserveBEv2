@@ -3,7 +3,6 @@ package com.dsu.industry.domain.reserve.controller;
 import com.dsu.industry.domain.product.entity.Product;
 import com.dsu.industry.domain.product.exception.ProductNotFoundException;
 import com.dsu.industry.domain.product.repository.ProductRepository;
-import com.dsu.industry.domain.product.repository.query.ProductQueryCustomRepository;
 import com.dsu.industry.domain.reserve.dto.ReserveDto;
 import com.dsu.industry.domain.reserve.service.ReserveService;
 import com.dsu.industry.domain.user.entity.User;
@@ -25,7 +24,6 @@ public class ReserveController {
     private final ReserveService reserveService;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
-    private final ProductQueryCustomRepository productQueryRepository;
 
     /**
      * 예약 요청
@@ -43,7 +41,8 @@ public class ReserveController {
 
         ReserveDto.ReserveIdRes idRes;
         if(dto.isCoupon_availability()) {
-            idRes = reserveService.reserveWithCoupon(dto);
+//            idRes = reserveService.reserveWithCoupon(dto);
+            idRes = null;
         } else {
             idRes = reserveService.reserve(ReserveDto.ReserveSaveReq.toEntity(user, product, dto));
         }

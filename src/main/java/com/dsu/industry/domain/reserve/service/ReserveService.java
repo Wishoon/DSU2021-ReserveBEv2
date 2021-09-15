@@ -1,17 +1,14 @@
 package com.dsu.industry.domain.reserve.service;
 
 import com.dsu.industry.domain.product.entity.AvailableDate;
-import com.dsu.industry.domain.product.entity.Product;
 import com.dsu.industry.domain.product.exception.AvailableDateNotFoundException;
-import com.dsu.industry.domain.product.repository.query.ProductQueryCustomRepository;
+import com.dsu.industry.domain.product.repository.query.AvailableDateQueryRepository;
 import com.dsu.industry.domain.reserve.dto.ReserveDto;
 import com.dsu.industry.domain.reserve.dto.ReserveDto.ReserveIdRes;
 import com.dsu.industry.domain.reserve.entity.Reserve;
 import com.dsu.industry.domain.reserve.exception.ReserveNotFoundException;
 import com.dsu.industry.domain.reserve.repository.ReserveRepository;
 import com.dsu.industry.domain.user.entity.User;
-import com.dsu.industry.domain.user.exception.UserNotFoundException;
-import com.dsu.industry.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,25 +22,23 @@ import java.util.stream.Collectors;
 @Service
 public class ReserveService {
 
-    private final UserRepository userRepository;
     private final ReserveRepository reserveRepository;
-    private final ProductQueryCustomRepository productQueryRepository;
-//    private final CouponRepository couponRepository;
+    private final AvailableDateQueryRepository availableDateQueryRepository;
 
     public ReserveIdRes reserve(Reserve reserve) {
 
         // 예약 가능 여부 재확인
-        List<AvailableDate> availableDates = productQueryRepository.findAvailable(
+        List<AvailableDate> availableDates = availableDateQueryRepository.findByAvailable(
                 reserve.getProduct().getId(), reserve.getCheckIn(), reserve.getCheckOut().minusDays(1)
         );
 
         if(availableDates.size() != ChronoUnit.DAYS.between(
                 reserve.getCheckIn(), reserve.getCheckOut())) {
-                        new AvailableDateNotFoundException();
+            new AvailableDateNotFoundException();
         }
 
         // 예약 가능 날짜에 대한 수정 벌크 연산 수행
-        productQueryRepository.updateAvailable(
+        availableDateQueryRepository.updateByAvailable(
                 reserve.getProduct().getId(), reserve.getCheckIn(), reserve.getCheckOut().minusDays(1)
         );
 
@@ -55,12 +50,12 @@ public class ReserveService {
                 .build();
     }
 
-    public ReserveIdRes reserveWithCoupon(ReserveDto.ReserveReq dto) {
-
-        return ReserveIdRes.builder()
-                .id(1L)
-                .build();
-    }
+//    public ReserveIdRes reserveWithCoupon(ReserveDto.ReserveReq dto) {
+//
+//        return ReserveIdRes.builder()
+//                .id(1L)
+//                .build();
+//    }
 
     public ReserveDto.ReserveInfoRes reserve_select(Long reserve_id) {
 
