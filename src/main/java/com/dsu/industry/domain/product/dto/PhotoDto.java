@@ -1,8 +1,6 @@
 package com.dsu.industry.domain.product.dto;
 
 import com.dsu.industry.domain.product.entity.Photo;
-import com.dsu.industry.domain.product.entity.PhotoType;
-import com.dsu.industry.domain.product.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,15 +11,24 @@ public class PhotoDto {
     @Builder
     @Data
     @NoArgsConstructor
-    public static class PhotoSaveReq {
+    @AllArgsConstructor
+    public static class PhotoIdRes {
+        private Long id;
+    }
 
-        public static Photo toEntity(Product product, String url) {
+    @Builder
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class PhotoInfoRes {
+        private Long id;
+        private String img_url;
+        private String type;
 
-            return Photo.builder()
-                    .product(product)
-                    .photoUrl(url)
-                    .photoType(PhotoType.MAIN)
-                    .build();
+        public PhotoInfoRes(Photo photo) {
+            this.id = photo.getId();
+            this.img_url = photo.getPhotoUrl();
+            this.type = photo.getPhotoType().toString();
         }
     }
 
@@ -29,7 +36,10 @@ public class PhotoDto {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PhotoIdRes {
-        private Long id;
+    public static class PhotoReviseReq {
+        private Long product_id;
+        private Long photo_id;
+        private String img_url;
+        private String type;
     }
 }
