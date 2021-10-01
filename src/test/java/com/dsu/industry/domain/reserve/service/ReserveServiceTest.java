@@ -70,7 +70,6 @@ class ReserveServiceTest {
 //        before_product();
     }
 
-    @Rollback(value = false)
     @Test
     @DisplayName("예약 서비스 테스트")
     public void reserve() {
