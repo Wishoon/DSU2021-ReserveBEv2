@@ -1,6 +1,7 @@
 package com.dsu.industry.domain.product.controller;
 
 import com.dsu.industry.domain.product.dto.ProductDto;
+import com.dsu.industry.domain.product.dto.SearchDto;
 import com.dsu.industry.domain.product.dto.mapper.ProductMapper;
 import com.dsu.industry.domain.product.entity.Product;
 import com.dsu.industry.domain.product.exception.ProductNotFoundException;
@@ -8,10 +9,7 @@ import com.dsu.industry.domain.product.repository.ProductRepository;
 import com.dsu.industry.domain.product.service.query.ProductQueryService;
 import com.dsu.industry.global.common.CommonResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,21 +22,16 @@ public class ProductSearchController {
     private final ProductQueryService productSearchService;
     private final ProductRepository productRepository;
 
-    @GetMapping("/search/{category}/{city}/{checkIn}/{checkOut}/{peopleCnt}")
+//    @GetMapping("/search/{category}/{city}/{checkIn}/{checkOut}/{peopleCnt}")
+    @GetMapping("/product/search")
     CommonResponse<List<ProductDto.ProductInfoRes>> product_searchList(
-            @PathVariable String category,
-            @PathVariable String city,
-            @PathVariable String checkIn,
-            @PathVariable String checkOut,
-            @PathVariable Long peopleCnt) {
+            @ModelAttribute SearchDto productSearchDto) {
 
             return CommonResponse.<List<ProductDto.ProductInfoRes>>builder()
                     .code("200")
                     .message("ok")
                     .data(productSearchService.product_searchList(
-                            ProductMapper.productSearchReqToDto(
-                                    category, city, checkIn, checkOut, peopleCnt
-                            )
+                            ProductMapper.productSearchReqToDto(productSearchDto)
                     ))
                     .build();
     }

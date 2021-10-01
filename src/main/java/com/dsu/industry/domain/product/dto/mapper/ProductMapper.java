@@ -2,6 +2,7 @@ package com.dsu.industry.domain.product.dto.mapper;
 
 import com.dsu.industry.domain.product.dto.PhotoDto;
 import com.dsu.industry.domain.product.dto.ProductDto;
+import com.dsu.industry.domain.product.dto.SearchDto;
 import com.dsu.industry.domain.product.entity.Category;
 import com.dsu.industry.domain.product.entity.Product;
 import com.dsu.industry.global.common.Address;
@@ -73,6 +74,23 @@ public class ProductMapper {
                 .checkIn(first)
                 .checkOut(last.minusDays(1))
                 .peopleCnt(peopleCnt)
+                .build();
+    }
+
+    public static ProductDto.ProductSearchReq productSearchReqToDto(
+            SearchDto dto) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+        LocalDate first = LocalDate.parse(dto.getCheckIn(), formatter);
+        LocalDate last = LocalDate.parse(dto.getCheckOut(), formatter);
+
+        return ProductDto.ProductSearchReq.builder()
+                .category(dto.getCategory())
+                .city(dto.getCity())
+                .dateCnt(ChronoUnit.DAYS.between(first, last))
+                .checkIn(first)
+                .checkOut(last.minusDays(1))
+                .peopleCnt(dto.getPeopleCnt())
                 .build();
     }
 
