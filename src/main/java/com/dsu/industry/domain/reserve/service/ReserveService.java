@@ -51,13 +51,6 @@ public class ReserveService {
                 .build();
     }
 
-//    public ReserveIdRes reserveWithCoupon(ReserveDto.ReserveReq dto) {
-//
-//        return ReserveIdRes.builder()
-//                .id(1L)
-//                .build();
-//    }
-
     public ReserveDto.ReserveInfoRes reserve_select(Long reserve_id) {
 
         Reserve reserve_select = reserveRepository.findById(reserve_id)

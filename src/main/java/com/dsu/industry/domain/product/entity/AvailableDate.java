@@ -1,5 +1,6 @@
 package com.dsu.industry.domain.product.entity;
 
+import com.dsu.industry.global.common.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,12 +14,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class AvailableDate {
+public class AvailableDate extends BaseEntity {
 
 //    @EmbeddedId
 //    private CalendarId calendarId;
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "available_date_id")
     private Long id;
 

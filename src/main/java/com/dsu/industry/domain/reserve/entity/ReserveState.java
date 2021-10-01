@@ -1,5 +1,5 @@
 package com.dsu.industry.domain.reserve.entity;
 
-public enum ReserveType {
+public enum ReserveState {
     CHECKIN_BEFORE, CHECKOUT, CANCEL
 }

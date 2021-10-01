@@ -34,17 +34,17 @@ public class ProductQueryServiceTest {
 
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 
-    @BeforeEach
-    public void before() {
-        before_product();
-    }
+//    @BeforeEach
+//    public void before() {
+//        before_product();
+//    }
 
     @Test
     @DisplayName("예약 상품 조건 검색")
     public void product_searchList() {
         /* given */
-        LocalDate checkIn = LocalDate.now();
-        LocalDate checkOut = LocalDate.now().plusDays(1);
+        LocalDate checkIn = LocalDate.now().plusDays(1);
+        LocalDate checkOut = LocalDate.now().plusDays(2);
 
         String str_checkIn = checkIn.format(format);
         String str_checkOut = checkOut.format(format);
@@ -59,7 +59,7 @@ public class ProductQueryServiceTest {
         /* then */
         assertNotNull(product_searchList);
         assertThat(product_searchList.get(0).getId()).isEqualTo(2L);
-        assertThat(product_searchList.get(0).getName()).isEqualTo("상품1");
+        assertThat(product_searchList.get(0).getName()).isEqualTo("상품2");
     }
 
     @Test

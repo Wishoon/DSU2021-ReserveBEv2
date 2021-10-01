@@ -18,7 +18,6 @@ import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -41,14 +40,14 @@ class ProductServiceTest {
     @BeforeEach
     public void before() {
 
-        before_product();
+//        before_product();
 
         productSaveReq = ProductDto.ProductSaveReq.builder()
-                .name("상품2")
-                .sub_name("상품하위2")
+                .name("상품3")
+                .sub_name("상품하위3")
                 .category_id(1L)
                 .img_url("https://dsu-reserve-v2.s3.ap-northeast-2.amazonaws.com/static/busan.jpeg")
-                .price(10000L)
+                .price(30000L)
                 .people_maxCnt(10L)
                 .addr1_depth_nm("부산")
                 .addr2_depth_nm("강서구")
@@ -58,11 +57,11 @@ class ProductServiceTest {
                 .build();
 
         productReviseReq = ProductDto.ProductReviseReq.builder()
-                .name("상품3")
-                .sub_name("상품하위3")
+                .name("상품수정3")
+                .sub_name("상품수정하위3")
                 .category_id(1L)
                 .img_url("https://dsu-reserve-v2.s3.ap-northeast-2.amazonaws.com/static/busan.jpeg")
-                .price(10000L)
+                .price(30000L)
                 .people_maxCnt(10L)
                 .addr1_depth_nm("부산")
                 .addr2_depth_nm("강서구")
@@ -77,7 +76,7 @@ class ProductServiceTest {
     void 상품등록() {
         /* given */
         Category category = categoryRepository.findById(productSaveReq.getCategory_id())
-                .orElseThrow(() -> new IllegalStateException("하아"));
+                .orElseThrow(() -> new CategoryNotFoundException());
         Product product = ProductMapper.productSaveDtoToEntity(productSaveReq, category);
 
         /* when */
@@ -97,6 +96,7 @@ class ProductServiceTest {
                 .orElseThrow(() -> new CategoryNotFoundException());
         Product save_product = ProductMapper.productSaveDtoToEntity(productSaveReq, save_category);
         ProductDto.ProductIdRes id = productService.product_save(save_product);
+
         // 수정할 상품 Entity
         Category category = categoryRepository.findById(productReviseReq.getCategory_id())
                 .orElseThrow(() -> new CategoryNotFoundException());
@@ -123,7 +123,7 @@ class ProductServiceTest {
         System.out.println(res.toString());
         assertNotNull(res);
         assertThat(res.getId()).isEqualTo(2L);
-        assertThat(res.getName()).isEqualTo("상품1");
+        assertThat(res.getName()).isEqualTo("상품2");
     }
 
     @Test
@@ -136,8 +136,9 @@ class ProductServiceTest {
 
         /* then */
         assertNotNull(resList);
-        assertThat(resList.size()).isEqualTo(1);
-        assertThat(resList.get(0).getId()).isEqualTo(2L);
+        assertThat(resList.get(0).getId()).isEqualTo(1L);
+        assertThat(resList.get(0).getName()).isEqualTo("상품1");
+        assertThat(resList.get(0).getPrice()).isEqualTo(20000);
     }
 
     public void before_product() {

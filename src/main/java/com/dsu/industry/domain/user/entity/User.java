@@ -13,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor // 필드값을 포함한 모든 생성자 생성
 public class User extends BaseEntity {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
     @Column(name = "user_email")

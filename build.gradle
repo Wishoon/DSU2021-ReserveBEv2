@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.3'
+    id 'org.springframework.boot' version '2.4.10'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
@@ -28,6 +28,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mapstruct:mapstruct:1.4.1.Final'
     implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+    implementation("org.mariadb.jdbc:mariadb-java-client:2.1.2")
+
     /* AWS 관련 */
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-aws', version: '2.2.1.RELEASE'
     compileOnly 'org.projectlombok:lombok'

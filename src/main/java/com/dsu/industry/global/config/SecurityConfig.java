@@ -1,6 +1,7 @@
-package com.dsu.industry.global.security;
+package com.dsu.industry.global.config;
 
 import com.dsu.industry.domain.user.entity.Authority;
+import com.dsu.industry.global.security.CustomUserDetailsService;
 import com.dsu.industry.global.security.jwt.TokenAuthenticationFilter;
 import com.dsu.industry.global.security.oauth2.CustomOAuth2UserService;
 import com.dsu.industry.global.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
@@ -90,28 +91,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()    // 기본 로그인 창 비활성화
                     .disable()
                 .authorizeRequests()
-                    .antMatchers("/").permitAll()
+                    .antMatchers("/**").permitAll()
+                    // 프로필 요청 처리
+                    .antMatchers("/profile").permitAll()
                     // 회원가입 처리
                     .antMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
                     // 로그인 처리
                     .antMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
-                    .antMatchers( "/oauth2/**").permitAll()
-                    .antMatchers("/api/v1/**").hasAnyRole(Authority.GUEST.name(), Authority.USER.name(), Authority.ADMIN.name())
-                    .anyRequest().authenticated()
-                    .and()
-                .oauth2Login()
-                    .authorizationEndpoint()
-                        .baseUri("/oauth2/authorize") // client 에서 처음 로그인 시도 URI
-                        .authorizationRequestRepository(cookieAuthorizationRequestRepository())
-                        .and()
-//                    .redirectionEndpoint()
-//                        .baseUri("/oauth2/callback/*")
+                    .antMatchers(HttpMethod.GET, "/api/v1/product/**").permitAll()
+//                    //oauth2 로그인 처리
+//                    .antMatchers( "/oauth2/**").permitAll()
+//                    .antMatchers("/api/v1/**").hasAnyRole(Authority.GUEST.name(), Authority.USER.name(), Authority.ADMIN.name())
+                    .anyRequest().authenticated();
+//                    .and()
+//                .oauth2Login()
+//                    .authorizationEndpoint()
+//                        .baseUri("/oauth2/authorize") // client 에서 처음 로그인 시도 URI
+//                        .authorizationRequestRepository(cookieAuthorizationRequestRepository())
 //                        .and()
-                    .userInfoEndpoint()
-                        .userService(customOAuth2UserService)
-                        .and()
-                    .successHandler(oAuth2AuthenticationSuccessHandler)
-                    .failureHandler(oAuth2AuthenticationFailureHandler);
+////                    .redirectionEndpoint()
+////                        .baseUri("/oauth2/callback/*")
+////                        .and()
+//                    .userInfoEndpoint()
+//                        .userService(customOAuth2UserService)
+//                        .and()
+//                    .successHandler(oAuth2AuthenticationSuccessHandler)
+//                    .failureHandler(oAuth2AuthenticationFailureHandler);
 
         // Add our custom Token based authentication filter
         // UsernamePasswordAuthenticationFilter 앞에 custom 필터 추가!

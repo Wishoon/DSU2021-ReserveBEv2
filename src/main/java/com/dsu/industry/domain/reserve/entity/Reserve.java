@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Reserve {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reserve_id")
     private Long id;
 
@@ -35,16 +35,22 @@ public class Reserve {
     private List<ReserveDetail> reserveDetailList = new ArrayList<>();
 
     // 예약 상세 정보
+    @JoinColumn(name = "reserve_peopleCnt")
     private Long people_reserveCnt;
 
+    @JoinColumn(name = "reserve_total_price")
     private Long total_price;
+    @JoinColumn(name = "reserve_sales_price")
     private Long sales_price;
+    @JoinColumn(name = "reserve_result_price")
     private Long result_price;
 
     @Enumerated(EnumType.STRING)
-    private ReserveType reserveType;
-
+    @JoinColumn(name = "reserve_state")
+    private ReserveState reserveState;
+    @JoinColumn(name = "reserve_checkIn")
     private LocalDate checkIn;
+    @JoinColumn(name = "reserve_checkOut")
     private LocalDate checkOut;
 
 

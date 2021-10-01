@@ -8,6 +8,7 @@ public enum ErrorCode {
     // Common
     BAD_INPUT_REQUEST(400, "COMMON_001", "입력값이 잘못되었습니다."),
     VALIDATION_ERROR(400, "COMMON_OO4", "입력값에 대한 검증을 만족하지 못했습니다 - "),
+    BINDING_ERROR(400, "COMMON_005", "입력값이 대한 검증을 만족하지 못했습니다 -"),
     METHOD_NOT_ALLOWED(405, "COMMON_002", "HTTP 메서드가 잘못되었습니다."),
     SERVER_ERROR(500, "COMMON_003", "서버 오류입니다."),
 

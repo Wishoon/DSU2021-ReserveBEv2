@@ -40,18 +40,10 @@ public class ReserveController {
         Product product = productRepository.findById(dto.getProduct_id())
                 .orElseThrow(() -> new ProductNotFoundException());
 
-        ReserveDto.ReserveIdRes idRes;
-        if(dto.isCoupon_availability()) {
-//            idRes = reserveService.reserveWithCoupon(dto);
-            idRes = null;
-        } else {
-            idRes = reserveService.reserve(ReserveMapper.reserveSaveReqToEntity(user, product, dto));
-        }
-
         return CommonResponse.<ReserveDto.ReserveIdRes>builder()
                 .code("200")
                 .message("ok")
-                .data(idRes)
+                .data(reserveService.reserve(ReserveMapper.reserveSaveReqToEntity(user, product, dto)))
                 .build();
     }
 
