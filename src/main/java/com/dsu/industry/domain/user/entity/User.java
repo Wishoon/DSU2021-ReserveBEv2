@@ -7,7 +7,8 @@ import lombok.*;
 import javax.persistence.*;
 
 @Builder
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor  // 기본 생성자 생성
 @AllArgsConstructor // 필드값을 포함한 모든 생성자 생성
