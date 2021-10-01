@@ -41,7 +41,7 @@ public class AvailableDateQueryRepositoryTest {
     @DisplayName("조회하는 상품에 대한 예약 가능 날짜 리스트 확인")
     public void findByAvailable() {
         /* given */
-        Long product_id = 2L;
+        Long product_id = 1L;
         LocalDate checkIn = LocalDate.now();
         LocalDate checkOut = LocalDate.now();
 

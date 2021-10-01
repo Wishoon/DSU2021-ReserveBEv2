@@ -42,6 +42,9 @@ dependencies {
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.rest-assured:rest-assured:4.0.0'
+    /* com.sun.xml.bind:jaxb-osgi:2.2.10 에러 */
+    implementation("org.yaml:snakeyaml:1.28")
+    testImplementation("io.rest-assured:xml-path:4.2.0")
 }
 
 test {

@@ -28,7 +28,7 @@ class ReserveRepositoryTest {
     void reserve_list_to_user() {
 
         /* given */
-        User user = userRepository.findById(7L)
+        User user = userRepository.findById(1L)
                 .orElseThrow(() -> new UserNotFoundException());
 
         /* when */
@@ -37,8 +37,7 @@ class ReserveRepositoryTest {
 
         /* then */
         assertNotNull(reserves);
-        assertThat(reserves.get(0).getProduct().getId()).isEqualTo(2);
-        assertThat(reserves.get(0).getProduct().getName()).isEqualTo("상품1");
+        assertThat(reserves.get(0).getId()).isEqualTo(1);
     }
 
 }

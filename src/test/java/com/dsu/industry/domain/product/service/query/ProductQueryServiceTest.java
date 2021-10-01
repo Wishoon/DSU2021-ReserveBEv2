@@ -62,11 +62,12 @@ public class ProductQueryServiceTest {
         assertThat(product_searchList.get(0).getName()).isEqualTo("상품2");
     }
 
+
     @Test
     @DisplayName("한 상품에 대한 예약 가능 날짜 조회")
     public void product_available_search() {
         /* given */
-        Product product = productRepository.findById(2L)
+        Product product = productRepository.findById(1L)
                 .orElseThrow(() -> new ProductNotFoundException());
         LocalDate today = LocalDate.now();
         ProductDto.ProductAvailableReq req = ProductMapper.productAndDateToDto(

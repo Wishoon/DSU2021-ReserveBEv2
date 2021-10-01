@@ -71,7 +71,6 @@ class ProductServiceTest {
                 .build();
     }
 
-    @Rollback(value = false)
     @Test
     void 상품등록() {
         /* given */
@@ -109,7 +108,6 @@ class ProductServiceTest {
         assertNotNull(res);
     }
 
-    @Rollback(value = false)
     @Test
     @DisplayName("상품 번호를 통한 검색")
     public void product_searchId() {

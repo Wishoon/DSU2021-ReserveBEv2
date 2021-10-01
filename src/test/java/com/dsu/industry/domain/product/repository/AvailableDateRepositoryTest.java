@@ -39,7 +39,7 @@ class AvailableDateRepositoryTest {
     @DisplayName("한 상품에 대한 금일부터의 예약 가능 날짜 조회 테스트")
     void productAvailable_toDate() {
         /* given */
-        Product product = productRepository.findById(2L)
+        Product product = productRepository.findById(1L)
                 .orElseThrow(() -> new ProductNotFoundException());
 
         ProductDto.ProductAvailableReq dto = ProductMapper.productAndDateToDto(
