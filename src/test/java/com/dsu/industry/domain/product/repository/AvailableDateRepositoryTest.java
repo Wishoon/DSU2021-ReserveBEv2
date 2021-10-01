@@ -23,10 +23,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class AvailableDateRepositoryTest {
 
-    @BeforeEach
-    public void before() {
-        before_product();
-    }
+//    @BeforeEach
+//    public void before() {
+//        before_product();
+//    }
 
     @Autowired
     EntityManager em;

@@ -34,12 +34,12 @@ class ProductQueryRepositoryTest {
     @Autowired
     ProductQueryRepository productQueryRepository;
 
-    @BeforeEach
-    public void before() {
-
-        // 카테고리, 도시, 체크인, 체크아웃 확인 기본 데이터
-        before_productAvailable_list();
-    }
+//    @BeforeEach
+//    public void before() {
+//
+//        // 카테고리, 도시, 체크인, 체크아웃 확인 기본 데이터
+//        before_productAvailable_list();
+//    }
 
     @Test
     @DisplayName("카테고리, 도시, 체크인, 체크아웃 조건에 따른 상품 예약 가능 여부 확인")

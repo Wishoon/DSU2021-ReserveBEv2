@@ -32,10 +32,10 @@ public class AvailableDateQueryRepositoryTest {
     @Autowired
     AvailableDateQueryRepository availableDateQueryRepository;
 
-    @BeforeEach
-    public void before() {
-        before_product();
-    }
+//    @BeforeEach
+//    public void before() {
+//        before_product();
+//    }
 
     @Test
     @DisplayName("조회하는 상품에 대한 예약 가능 날짜 리스트 확인")
