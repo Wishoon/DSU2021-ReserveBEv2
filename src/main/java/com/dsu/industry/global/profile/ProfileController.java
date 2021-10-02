@@ -19,7 +19,7 @@ public class ProfileController {
     @GetMapping("/profile")
     public String profile(){
         List<String> profiles = Arrays.asList(env.getActiveProfiles());
-        List<String> realProfiles = Arrays.asList("local", "real1", "real2");
+        List<String> realProfiles = Arrays.asList("real1", "real2");
         String defaultProfile = profiles.isEmpty()? "default" : profiles.get(0);
         log.info("Current Profile : " + defaultProfile);
         return profiles.stream().filter(realProfiles::contains).findAny().orElse(defaultProfile);
