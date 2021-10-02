@@ -28,7 +28,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mapstruct:mapstruct:1.4.1.Final'
     implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
-    implementation("org.mariadb.jdbc:mariadb-java-client:2.1.2")
+    implementation("org.mariadb.jdbc:mariadb-java-client:2.4.2")
 
     /* AWS 관련 */
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-aws', version: '2.2.1.RELEASE'
