@@ -120,8 +120,8 @@ class ProductServiceTest {
         /* then */
         System.out.println(res.toString());
         assertNotNull(res);
-        assertThat(res.getId()).isEqualTo(2L);
-        assertThat(res.getName()).isEqualTo("상품2");
+        assertThat(res.getProduct_id()).isEqualTo(2L);
+        assertThat(res.getProduct_name()).isEqualTo("상품2");
     }
 
     @Test
@@ -134,9 +134,9 @@ class ProductServiceTest {
 
         /* then */
         assertNotNull(resList);
-        assertThat(resList.get(0).getId()).isEqualTo(1L);
-        assertThat(resList.get(0).getName()).isEqualTo("상품1");
-        assertThat(resList.get(0).getPrice()).isEqualTo(20000);
+        assertThat(resList.get(0).getProduct_id()).isEqualTo(1L);
+        assertThat(resList.get(0).getProduct_name()).isEqualTo("상품1");
+        assertThat(resList.get(0).getProduct_price()).isEqualTo(20000);
     }
 
     public void before_product() {

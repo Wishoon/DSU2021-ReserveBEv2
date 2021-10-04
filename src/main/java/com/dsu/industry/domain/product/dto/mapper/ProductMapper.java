@@ -99,20 +99,20 @@ public class ProductMapper {
      */
     public static ProductDto.ProductInfoRes productEntityToDto(Product product) {
         return ProductDto.ProductInfoRes.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .sub_name(product.getSub_name())
-                .category_name(product.getCategory().getName())
+                .product_id(product.getId())
+                .product_name(product.getName())
+                .product_sub_name(product.getSub_name())
+                .product_category_name(product.getCategory().getName())
                 .address(product.getAddress())
                 // 개발 마무리 후 생성자 말고 메서드로 변경
-                .img(
+                .product_img(
                         product.getPhotoList().stream()
                                 .map(photo -> new PhotoDto.PhotoInfoRes(photo))
                                 .collect(Collectors.toList())
                 )
-                .price(product.getPrice())
-                .people_maxCnt(product.getPeople_maxCnt())
-                .description(product.getDescription())
+                .product_price(product.getPrice())
+                .product_people_maxCnt(product.getPeople_maxCnt())
+                .product_description(product.getDescription())
                 .build();
     }
 

@@ -58,8 +58,8 @@ public class ProductQueryServiceTest {
 
         /* then */
         assertNotNull(product_searchList);
-        assertThat(product_searchList.get(0).getId()).isEqualTo(2L);
-        assertThat(product_searchList.get(0).getName()).isEqualTo("상품2");
+        assertThat(product_searchList.get(0).getProduct_id()).isEqualTo(2L);
+        assertThat(product_searchList.get(0).getProduct_name()).isEqualTo("상품2");
     }
 
 

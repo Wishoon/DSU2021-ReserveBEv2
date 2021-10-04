@@ -59,24 +59,24 @@ public class ProductDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ProductInfoRes {
-        private Long id;
-        private String name;
-        private String sub_name;
-        private String category_name;
+        private Long product_id;
+        private String product_name;
+        private String product_sub_name;
+        private String product_category_name;
 
         // 주소
         private Address address;
 
         // 이미지 URL
-        private List<PhotoDto.PhotoInfoRes> img;
+        private List<PhotoDto.PhotoInfoRes> product_img;
 
         // 평점
 
         // 댓글 갯수
 
-        private Long price;
-        private Long people_maxCnt;
-        private String description;
+        private Long product_price;
+        private Long product_people_maxCnt;
+        private String product_description;
     }
 
     @Builder
