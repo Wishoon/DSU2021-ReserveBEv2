@@ -34,13 +34,6 @@ class ProductQueryRepositoryTest {
     @Autowired
     ProductQueryRepository productQueryRepository;
 
-//    @BeforeEach
-//    public void before() {
-//
-//        // 카테고리, 도시, 체크인, 체크아웃 확인 기본 데이터
-//        before_productAvailable_list();
-//    }
-
     @Test
     @DisplayName("카테고리, 도시, 체크인, 체크아웃 조건에 따른 상품 예약 가능 여부 확인")
     void productAvailable_list() {
@@ -92,33 +85,4 @@ class ProductQueryRepositoryTest {
 //        assertNotNull(product);
 //        assertThat(product.getId()).isEqualTo(product_select.getId());
 //    }
-
-    public void before_productAvailable_list() {
-        Category category = new Category();
-        category.setName("호텔");
-        em.persist(category);
-
-        Address address = new Address("부산", "강서구", "명지동", "상세주소");
-
-        Product product = new Product();
-        product.setName("상품1");
-        product.setSub_name("상품 부 이름1");
-        product.setPrice(100000L);
-        product.setPeople_maxCnt(10L);
-        product.setAddress(address);
-        product.setCategory(category);
-        product.setDescription("상품에 대한 설명");
-
-        Photo photo1 = new Photo();
-        photo1.setProduct(product);
-        photo1.setPhotoType(PhotoType.MAIN);
-        photo1.setPhotoUrl("https://dsu-reserve-v2.s3.ap-northeast-2.amazonaws.com/static/busan.jpeg");
-
-        AvailableDate date1 = new AvailableDate();
-        date1.setProduct(product);
-        date1.setDate(LocalDate.now());
-        product.getAvailableDateList().add(date1);
-
-        em.persist(product);
-    }
 }

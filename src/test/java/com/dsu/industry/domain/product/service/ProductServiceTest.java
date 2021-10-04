@@ -40,13 +40,11 @@ class ProductServiceTest {
     @BeforeEach
     public void before() {
 
-//        before_product();
-
         productSaveReq = ProductDto.ProductSaveReq.builder()
                 .name("상품3")
                 .sub_name("상품하위3")
                 .category_id(1L)
-                .img_url("https://dsu-reserve-v2.s3.ap-northeast-2.amazonaws.com/static/busan.jpeg")
+                .img_url("https://dsu-reserve-img.s3.ap-northeast-2.amazonaws.com/static/85bf46dc-983b-4c16-9957-9f69b984d583img+3.jpeg")
                 .price(30000L)
                 .people_maxCnt(10L)
                 .addr1_depth_nm("부산")
@@ -60,7 +58,7 @@ class ProductServiceTest {
                 .name("상품수정3")
                 .sub_name("상품수정하위3")
                 .category_id(1L)
-                .img_url("https://dsu-reserve-v2.s3.ap-northeast-2.amazonaws.com/static/busan.jpeg")
+                .img_url("https://dsu-reserve-img.s3.ap-northeast-2.amazonaws.com/static/85bf46dc-983b-4c16-9957-9f69b984d583img+3.jpeg")
                 .price(30000L)
                 .people_maxCnt(10L)
                 .addr1_depth_nm("부산")
@@ -137,35 +135,5 @@ class ProductServiceTest {
         assertThat(resList.get(0).getProduct_id()).isEqualTo(1L);
         assertThat(resList.get(0).getProduct_name()).isEqualTo("상품1");
         assertThat(resList.get(0).getProduct_price()).isEqualTo(20000);
-    }
-
-    public void before_product() {
-        Category category = new Category();
-        category.setName("호텔");
-        em.persist(category);
-
-        Address address = new Address("부산", "강서구", "명지동", "상세주소");
-
-        Product product = new Product();
-        product.setName("상품1");
-        product.setSub_name("상품 부 이름1");
-        product.setPrice(100000L);
-        product.setPeople_maxCnt(10L);
-        product.setAddress(address);
-        product.setCategory(category);
-        product.setDescription("상품에 대한 설명");
-
-        Photo photo1 = new Photo();
-        photo1.setProduct(product);
-        photo1.setPhotoType(PhotoType.MAIN);
-        photo1.setPhotoUrl("https://dsu-reserve-v2.s3.ap-northeast-2.amazonaws.com/static/busan.jpeg");
-        product.getPhotoList().add(photo1);
-        
-        AvailableDate date1 = new AvailableDate();
-        date1.setProduct(product);
-        date1.setDate(LocalDate.now());
-        product.getAvailableDateList().add(date1);
-
-        em.persist(product);
     }
 }

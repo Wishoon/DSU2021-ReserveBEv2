@@ -58,7 +58,7 @@ class ReserveServiceTest {
         String str_checkOut = checkOut.format(format);
 
         dto = ReserveDto.ReserveReq.builder()
-                .product_id(2L)
+                .product_id(1L)
                 .reserve_checkIn(str_checkIn)
                 .reserve_checkOut(str_checkOut)
                 .reserve_peopleCnt(4L)
@@ -67,7 +67,6 @@ class ReserveServiceTest {
                 .reserve_result_payment(16000L)
                 .build();
 
-//        before_product();
     }
 
     @Test
@@ -117,81 +116,4 @@ class ReserveServiceTest {
         assertNotNull(reserves);
         assertThat(reserves.get(0).getReserve_product_name()).isEqualTo("상품2");
     }
-
-    public void before_product() {
-        Category category = new Category();
-        category.setName("호텔");
-        em.persist(category);
-
-        Address address = new Address("부산", "강서구", "명지동", "상세주소");
-
-        Product product1 = new Product();
-        product1.setName("상품1");
-        product1.setSub_name("상품 부 이름1");
-        product1.setPrice(20000L);
-        product1.setPeople_maxCnt(10L);
-        product1.setAddress(address);
-        product1.setCategory(category);
-        product1.setDescription("상품에 대한 설명");
-
-        Photo photo1 = new Photo();
-        photo1.setProduct(product1);
-        photo1.setPhotoType(PhotoType.MAIN);
-        photo1.setPhotoUrl("https://dsu-reserve-v2.s3.ap-northeast-2.amazonaws.com/static/busan.jpeg");
-        product1.getPhotoList().add(photo1);
-
-        AvailableDate date1 = new AvailableDate();
-        date1.setProduct(product1);
-        date1.setDate(LocalDate.now());
-        product1.getAvailableDateList().add(date1);
-
-        em.persist(product1);
-
-        Product product2 = new Product();
-        product2.setName("상품2");
-        product2.setSub_name("상품 부 이름2");
-        product2.setPrice(10000L);
-        product2.setPeople_maxCnt(10L);
-        product2.setAddress(address);
-        product2.setCategory(category);
-        product2.setDescription("상품에 대한 설명2");
-
-        Photo photo2 = new Photo();
-        photo2.setProduct(product1);
-        photo2.setPhotoType(PhotoType.MAIN);
-        photo2.setPhotoUrl("https://dsu-reserve-v2.s3.ap-northeast-2.amazonaws.com/static/busan.jpeg");
-        product2.getPhotoList().add(photo2);
-
-        AvailableDate date2 = new AvailableDate();
-        date2.setProduct(product1);
-        date2.setDate(LocalDate.now().plusDays(2));
-        product2.getAvailableDateList().add(date2);
-
-        em.persist(product2);
-
-        User user = new User();
-        user.setName("유저1");
-        user.setEmail("test1@gmail.com");
-        user.setPassword("$2a$10$8iZb1uwdcINJTw.oSL6QouuRz3azSmHBZvEWpSHrlxUSOW679jazO");
-        user.setPhone("01012345678");
-        user.setAddress(address);
-        user.setAuthority(Authority.USER);
-        user.setAuthProvider(AuthProvider.local);
-
-        em.persist(user);
-
-        Reserve reserve = new Reserve();
-        reserve.setProduct(product2);
-        reserve.setUser(user);
-        reserve.setPeople_reserveCnt(4L);
-        reserve.setTotal_price(10000L);
-        reserve.setSales_price(4000L);
-        reserve.setResult_price(6000L);
-        reserve.setReserveState(ReserveState.CHECKIN_BEFORE);
-        reserve.setCheckIn(LocalDate.now().plusDays(1));
-        reserve.setCheckOut(LocalDate.now().plusDays(2));
-
-        em.persist(reserve);
-    }
-
 }

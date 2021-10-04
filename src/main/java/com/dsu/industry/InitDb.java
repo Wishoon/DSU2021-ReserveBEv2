@@ -52,7 +52,7 @@ public class InitDb {
             Photo photo1 = new Photo();
             photo1.setProduct(product1);
             photo1.setPhotoType(PhotoType.MAIN);
-            photo1.setPhotoUrl("https://dsu-reserve-img.s3.ap-northeast-2.amazonaws.com/static/img1.jpeg");
+            photo1.setPhotoUrl("https://dsu-reserve-img.s3.ap-northeast-2.amazonaws.com/static/94dde3ee-137b-44ba-94c1-3659bcbc99ebimg1.jpeg");
             product1.getPhotoList().add(photo1);
 
             AvailableDate date1 = new AvailableDate();
@@ -74,7 +74,7 @@ public class InitDb {
             Photo photo2 = new Photo();
             photo2.setProduct(product2);
             photo2.setPhotoType(PhotoType.MAIN);
-            photo2.setPhotoUrl("https://dsu-reserve-img.s3.ap-northeast-2.amazonaws.com/static/img1.jpeg");
+            photo2.setPhotoUrl("https://dsu-reserve-img.s3.ap-northeast-2.amazonaws.com/static/d859cb25-5bc1-4ab1-8fb6-458b246f1677img+2.jpeg");
             product2.getPhotoList().add(photo2);
 
             AvailableDate date2 = new AvailableDate();
@@ -89,6 +89,61 @@ public class InitDb {
             product2.getAvailableDateList().add(date3);
 
             em.persist(product2);
+
+            Product product5 = new Product();
+            product5.setName("상품5");
+            product5.setSub_name("상품 부 이름5");
+            product5.setPrice(50000L);
+            product5.setPeople_maxCnt(10L);
+            product5.setAddress(address);
+            product5.setCategory(category);
+            product5.setDescription("상품에 대한 설명5");
+
+            Photo photo5 = new Photo();
+            photo5.setProduct(product5);
+            photo5.setPhotoType(PhotoType.MAIN);
+            photo5.setPhotoUrl("https://dsu-reserve-img.s3.ap-northeast-2.amazonaws.com/static/22a8c47d-febf-4869-bd94-35dd1315b3b7img+5.jpeg");
+            product5.getPhotoList().add(photo5);
+
+            AvailableDate date5_1 = new AvailableDate();
+            date5_1.setProduct(product5);
+            date5_1.setDate(LocalDate.now().plusDays(1));
+            product5.getAvailableDateList().add(date5_1);
+
+            AvailableDate date5_2 = new AvailableDate();
+            date5_2.setProduct(product5);
+            date5_2.setDate(LocalDate.now().plusDays(2));
+            product5.getAvailableDateList().add(date5_2);
+
+            em.persist(product5);
+
+            Product product6 = new Product();
+            product6.setName("상품6");
+            product6.setSub_name("상품 부 이름6");
+            product6.setPrice(60000L);
+            product6.setPeople_maxCnt(10L);
+            product6.setAddress(address);
+            product6.setCategory(category);
+            product6.setDescription("상품에 대한 설명6");
+
+            Photo photo6 = new Photo();
+            photo6.setProduct(product6);
+            photo6.setPhotoType(PhotoType.MAIN);
+            photo6.setPhotoUrl("https://dsu-reserve-img.s3.ap-northeast-2.amazonaws.com/static/281d3c72-7e00-4b84-9439-536167947efbimg+6.jpeg");
+            product6.getPhotoList().add(photo6);
+
+            AvailableDate date6_1 = new AvailableDate();
+            date6_1.setProduct(product6);
+            date6_1.setDate(LocalDate.now().plusDays(1));
+            product6.getAvailableDateList().add(date6_1);
+
+            AvailableDate date6_2 = new AvailableDate();
+            date6_2.setProduct(product6);
+            date6_2.setDate(LocalDate.now().plusDays(2));
+            product6.getAvailableDateList().add(date6_2);
+
+            em.persist(product6);
+
 
             User user = new User();
             user.setName("유저1");
